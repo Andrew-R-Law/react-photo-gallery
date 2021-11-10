@@ -3,20 +3,26 @@ import React, {Component} from 'react';
 
 class SearchBar extends Component {
 
+    //Sets a state with a keyword of searchText.
+
     state = {
         searchText: ''
     }
 
+    //When called, this function sets the value of searchText to what was entered into the search bar.
+
     onSearchChange = e => {
         this.setState({ searchText: e.target.value });
     }
+
+    //When called, this function prevents the default function and invokes the performSearch function from App.js, passing in the value of the searchText as an argument.
 
     handleSubmit = e => {
         e.preventDefault();
         this.props.onSearch(this.state.searchText);
         e.currentTarget.reset();
     }
-    
+
     render () {
         return (
             <form className="search-form" onSubmit={this.handleSubmit}>

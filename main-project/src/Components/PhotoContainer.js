@@ -8,6 +8,7 @@ const PhotoContainer = (props) => {
     let title = `Results for: ${props.query}`;
     let photoList;
 
+    //If there are any photos returned, then photoList contains each photo. Otherwise, photoList is set to the "NotFound" component.
     if (matches.length > 1) {
         photoList = matches.map( 
             (photo, index) => <Photo key={index} data={photo} />
@@ -17,6 +18,8 @@ const PhotoContainer = (props) => {
         photoList = <NotFound />
     }
 
+    //The value of photoList is displayed.
+    
     return (
         <div className="photo-container">
             <h2>{title}</h2>
