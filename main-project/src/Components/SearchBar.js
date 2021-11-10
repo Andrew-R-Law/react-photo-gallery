@@ -7,7 +7,6 @@ class SearchBar extends Component {
         searchText: ''
     }
 
-
     onSearchChange = e => {
         this.setState({ searchText: e.target.value });
     }
@@ -17,8 +16,8 @@ class SearchBar extends Component {
         this.props.onSearch(this.state.searchText);
         e.currentTarget.reset();
     }
-
-    render() {
+    
+    render () {
         return (
             <form className="search-form" onSubmit={this.handleSubmit}>
                 <input type="search" 
@@ -36,6 +35,7 @@ class SearchBar extends Component {
             </form>
         );
     }
+
 }
 
 export default SearchBar; 
