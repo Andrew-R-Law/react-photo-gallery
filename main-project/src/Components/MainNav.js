@@ -1,25 +1,24 @@
-import React from 'react';
-import {Route, Routes, NavLink, BrowserRouter} from 'react-router-dom';
-import PhotoContainer from './PhotoContainer';
+import React, {Component} from 'react';
+import {Link} from 'react-router-dom';
 
-const MainNav = () => {
-    return (
-        <BrowserRouter>
+class MainNav extends Component {
+    handleClick = e => {
+        let btnText = e.target.innerText;
+        this.props.onClick(btnText);
+    }
+    
+    render () {
+        return (
             <nav className="main-nav">
                 <ul>
-                    <li><NavLink to={'/cats'}>Cats</NavLink></li>
-                    <li><NavLink to={'/dogs'}>Dogs</NavLink></li>
-                    <li><NavLink to={'/computers'}>Computers</NavLink></li>
+                    <li onClick={this.handleClick}><Link to={'/cats'}>Cats</Link></li>
+                    <li onClick={this.handleClick}><Link to={'/dogs'}>Dogs</Link></li>
+                    <li onClick={this.handleClick}><Link to={'/computers'}>Computers</Link></li>
                 </ul>
-                <Routes>
-                    <Route path={'/cats'} component={PhotoContainer} />
-                    <Route path={'/dogs'} component={PhotoContainer} />
-                    <Route path={'/computers'} component={PhotoContainer} />
-                </Routes>
             </nav>
-        </BrowserRouter>
-    );
-};
+        );
+    }
+}
 
 
 export default MainNav;

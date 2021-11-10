@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import apiKey from './config';
 import SearchBar from './Components/SearchBar';
 import MainNav from './Components/MainNav';
@@ -14,7 +14,7 @@ class App extends Component {
     query: 'Sunsets'
   }
 
-  performSearch = ( query = 'sunsets' ) => {
+  performSearch = ( query = this.state.query ) => {
     this.setState({
       isLoading: true,
       query
@@ -39,16 +39,26 @@ class App extends Component {
 
   render () {
     return (
-      <div className="container">
-        <h1>A Photo Gallery Powered by React and Flickr</h1>
-        <SearchBar onSearch={this.performSearch}/>
-        <MainNav />
-        {
-          (this.state.isLoading)
-          ? <p>Loading...</p>
-          : <PhotoContainer photos={this.state.photos} query={this.state.query}/>
-        }
-    </div>
+      <BrowserRouter>
+        <div className="container">
+          <h1>A Photo Gallery Powered by React and Flickr</h1>
+          <SearchBar onSearch={this.performSearch}/>
+          <MainNav onClick={this.performSearch} photos={this.state.photos}/>
+          {
+            (this.state.isLoading)
+            ? <p>Loading...</p>
+            : ( 
+              <Routes>
+                <Route exact path='/' element={ <PhotoContainer photos={this.state.photos} query={this.state.query} />}></Route>
+                <Route exact path='/cats' element={ <PhotoContainer photos={this.state.photos} query={this.state.query} />}></Route>
+                <Route exact path='/dogs' element={ <PhotoContainer photos={this.state.photos} query={this.state.query} />}></Route>
+                <Route exact path='/computers' element={ <PhotoContainer photos={this.state.photos} query={this.state.query} />}></Route>
+                <Route exact path='/:searched' element={ <PhotoContainer photos={this.state.photos} query={this.state.query} />}></Route>
+              </Routes>
+            ) 
+          }
+        </div>
+      </BrowserRouter>
     );
   }
 }
